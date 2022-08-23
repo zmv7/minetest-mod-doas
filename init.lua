@@ -10,5 +10,7 @@ core.register_chatcommand("doas", {
         if vcmd then
             vcmd.func(nick,par)
             return true, "Executed '/"..cmd.." "..par.."' as "..nick
-        end
+        else
+			return false, "Invalid command"
+		end
 end})
