@@ -8,6 +8,15 @@ core.register_chatcommand("doas", {
         if not nick then return false, "Invalid parameters" end
         local vcmd = core.chatcommands[cmd]
         if vcmd then
+        	if nick == "@all" or nick == "@everyone" then
+        		for _,player in ipairs(core.get_connected_players()) do
+        			local pname = player and player:get_player_name()
+        			if pname then
+        				vcmd.func(pname,par)
+        			end
+        		end
+        		return true, "Executed '/"..cmd.." "..par.."' as all online players"
+        	end
             vcmd.func(nick,par)
             return true, "Executed '/"..cmd.." "..par.."' as "..nick
         else
